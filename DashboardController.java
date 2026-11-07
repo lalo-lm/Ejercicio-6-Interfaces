@@ -1,54 +1,51 @@
 public class DashboardController {
     private DashboardModel model;
-    private DashboardView vista;
+    private DashboardView view;
 
-    public DashboardController(DashboardModel modelo, DashboardView vista) {
-        this.modelo = modelo;
-        this.vista = vista;
+    public DashboardController(DashboardModel model, DashboardView view) {
+        this.model = model;
+        this.view = view;
     }
 
-    public void iniciar() {
-        int opcion = -1;
+    public void start() {
+        int option = -1;
         
-        while (opcion != 0) {
-            opcion = vista.mostrarMenuPrincipal();
+        while (option != 0) {
+            option = view.showMainMenu();
             
-            if (opcion == 1) {
-                vista.mostrarListaWidgets(modelo.obtenerWidgets());
-            } else if (opcion == 2) {
-                String idInteraccion = vista.solicitarId();
-                Widget target = modelo.buscarWidget(idInteraccion);
+            if (option == 1) {
+                view.showWidgetList(model.obtainWidgets());
+            } else if (option == 2) {
+                String idInteraction = view.requestId();
+                Widget target = model.searchWidget(idInteraction);
                 if (target != null) {
-                    vista.mostrarDetalleWidget(target);
-                    if (target instanceof Interactivo) {
+                    view.showWidgetDetail(target);
+                    if (target instanceof Interactive) {
                         // El controlador obtiene la respuesta y se la manda a la vista para imprimir
-                        String resultadoInteraccion = ((Interactivo) target).interactuar();
-                        vista.mostrarMensaje(resultadoInteraccion);
+                        String resultInteraction = ((Interactive) target).interact();
+                        view.showMessage(resultInteraction);
                     } else {
-                        vista.mostrarMensaje("\n[i] Este widget es puramente estático y no soporta interacción.");
+                        view.showMessage("\n[i] Este widget es puramente estático y no soporta interacción.");
                     }
                 } else {
-                    vista.mostrarMensaje("\n[!] El ID ingresado no existe en el catálogo.");
+                    view.showMessage("\n[!] El ID ingresado no existe en el catálogo.");
                 }
-            } else if (opcion == 3) {
-                String idBuscado = vista.solicitarId();
-                Widget encontradoId = modelo.buscarWidget(idBuscado);
-                vista.mostrarDetalleWidget(encontradoId);
-            } else if (opcion == 4) {
-                String nombreBuscado = vista.solicitarNombre();
-                var resultados = modelo.buscarWidget(nombreBuscado, true);
-                vista.mostrarListaResultadosBusqueda(resultados);
-            } else if (opcion == 5) {
-                modelo.ordenarPorMemoria();
-                vista.mostrarMensaje("\n[✔] Widgets ordenados exitosamente por consumo de memoria (KB).");
-                vista.mostrarListaWidgets(modelo.obtenerWidgets());
-            } else if (opcion == 6) {
-                vista.mostrarMensaje("\n[i] Principio Abierto/Cerrado (OCP): Para agregar un nuevo widget el próximo mes,");
-                vista.mostrarMensaje("basta con crear una nueva clase extendiendo de Widget e implementando las interfaces necesarias.");
-            } else if (opcion == 0) {
-                vista.mostrarMensaje("\nSaliendo del sistema Dashboard. ¡Hasta pronto!");
+            } else if (option == 3) {
+                String searchedId = view.requestId();
+                Widget foundId = model.searchWidget(searchedId);
+                view.showWidgetDetail(foundId);
+            } else if (option == 4) {
+                String searchedName = view.requestName();
+                var results = model.searchWidgetN(searchedName);
+                view.showSearchResultsList(results);
+            } else if (option == 5) {
+                model.sortByMemory();
+                view.showMessage("\n[✔] Widgets ordenados exitosamente por consumo de memoria (KB).");
+                view.showWidgetList(model.obtainWidgets());
+            } else if (option == 0) {
+                view.showMessage("\nSaliendo del sistema Dashboard. ¡Hasta pronto!");
             } else {
-                vista.mostrarMensaje("\n[!] Opción inválida. Por favor seleccione una opción del menú.");
+                view.showMessage("\n[!] Opción inválida. Por favor seleccione una opción del menú.");
             }
         }
     }

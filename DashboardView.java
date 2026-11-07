@@ -17,7 +17,6 @@ public class DashboardView {
         System.out.println("3. Buscar widget por ID");
         System.out.println("4. Buscar widget por Nombre");
         System.out.println("5. Ordenar widgets por consumo de memoria");
-        System.out.println("6. Información de Extensibilidad");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
         
@@ -54,7 +53,7 @@ public class DashboardView {
         }
     }
 
-    public void showSearchResultList(List<Widget> widgets) {
+    public void showSearchResultsList(List<Widget> widgets) {
         if (widgets.isEmpty()) {
             System.out.println("\n[!] No se encontraron widgets con ese criterio.");
             return;

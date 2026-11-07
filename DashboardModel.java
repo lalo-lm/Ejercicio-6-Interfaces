@@ -41,18 +41,18 @@ public class DashboardModel {
     }
 
     public List<Widget> searchWidgetN(String name) {
-        List<Widget> resultados = new ArrayList<>();
+        List<Widget> results = new ArrayList<>();
         for (Widget w : widgets) {
             if (w.getName().toLowerCase().contains(name.toLowerCase())) {
-                resultados.add(w);
+                results.add(w);
             }
             else {
                 if (w.getName().equalsIgnoreCase(name)) {
-                    resultados.add(w);
+                    results.add(w);
                 }
             }
         }
-        return resultados;
+        return results;
     }
 
     public void sortByMemory() {
